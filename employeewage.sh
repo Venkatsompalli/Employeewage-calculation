@@ -3,10 +3,12 @@
 ispresent=1;
 ispresenthalf=2;
 emprateperhr=20;
-workingdays=20;
+maxworkingdays=20;
+maxemphrs=100;
 totalworkingdays=0;
 totalemphrs=0;
-for (( i=1 ; i<=20 ; i++  ))
+
+while [[ $totalworkingdays -le $maxworkingdays && $totalemphrs -le $maxemphrs  ]]
 do
 randomcheck=$((RANDOM%3));
 
@@ -22,7 +24,7 @@ case $randomcheck in
          ;;
 esac
 totalemphrs=$(($totalemphrs+$emphrs));
-
+totalworkingdays=$(($totalworkingdays+1));
 done
 
 Salary=$(($emprateperhr*$totalemphrs));
