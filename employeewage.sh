@@ -5,18 +5,17 @@ ispresenthalf=2;
 emprateperhr=20;
 randomcheck=$((RANDOM%3));
 
-if [ $ispresent -eq $randomcheck ];
+case $randomcheck in
+        $ispresent)
+         emphrs=8
+         ;;
+         $ispresenthalf)
+         emphrs=4;
+         ;;
+         *)
+         emphrs=0;
+         ;;
+esac
 
-then
-      echo Employee is present
-      emphrs=8;
-      salary=$(($emphrs*$emprateperhr));
-elif [ $ispresenthalf -eq $randomcheck ];
-then
-      echo Employee is present Halfday
-      emphrs=4;
-      salary=$(($emphrs*$emprateperhr));
-else
-      echo Employee is absent
-      salary=0;
-fi
+Salary=$(($emprateperhr*$emphrs));
+echo Salary:$Salary
