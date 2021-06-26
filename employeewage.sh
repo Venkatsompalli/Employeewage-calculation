@@ -8,6 +8,8 @@ maxemphrs=100;
 totalworkingdays=0;
 totalemphrs=0;
 
+declare -A dailywage
+
 function getworkhours() {
 
 case $1 in
@@ -21,14 +23,27 @@ case $1 in
          emphrs=0;
          ;;
 esac
+
+echo $emphrs
 }
 
-while [[ $totalworkingdays -le $maxworkingdays && $totalemphrs -le $maxemphrs  ]]
+
+function getempwage() {
+  local emphr=$1
+  echo $(($emphr*$emprateperhr))
+}
+
+
+while [[ $totalworkingdays -lt $maxworkingdays && $totalemphrs -lt $maxemphrs  ]]
 do
 ((totalworkingdays++))
-getworkhours $((RANDOM%3))
+empcheck=$((RANDOM%3));
+emphrs="$( getworkhours $empcheck)"
 totalemphrs=$(($totalemphrs+$emphrs));
+dailywage["totalworkingdays"]="$( getempwage $emphrs )"
 done
 
 Salary=$(($emprateperhr*$totalemphrs));
-echo Salary:$Salary
+
+echo ${dailywage[@]}
+
