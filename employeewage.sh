@@ -42,5 +42,5 @@ done
 
 totalSalary="$( getEmpWage $totalEmpHrs )"
 echo ${dailyWage[@]}
-
+echo
 
